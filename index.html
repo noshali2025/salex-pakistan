@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sale X - Pakistan's Trusted Marketplace</title>
     
-    <meta http-equiv="refresh" content="0;url=https://play.google.com/store/apps/details?id=com.arriverr.salex">
-    <script>
-        // Instant JavaScript Redirect
-        window.location.replace("https://play.google.com/store/apps/details?id=com.arriverr.salex");
-    </script>
-    
+    <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Swiper CSS for Vertical Slider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     
     <style>
@@ -38,21 +34,6 @@
             overflow-x: hidden;
         }
 
-        /* Redirecting Overlay Message */
-        .redirect-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            z-index: 999;
-        }
-
         /* Header Navigation */
         header {
             display: flex;
@@ -64,7 +45,6 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            margin-top: 40px; /* Space for overlay */
         }
 
         .brand-logo {
@@ -94,7 +74,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 60px 8%;
-            min-height: calc(100vh - 125px);
+            min-height: calc(100vh - 85px);
             gap: 40px;
         }
 
@@ -140,6 +120,7 @@
             gap: 14px;
             transition: all 0.3s ease;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
         }
 
         .play-store-btn:hover {
@@ -157,6 +138,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            text-align: left;
         }
 
         .play-store-text .small {
@@ -187,7 +169,6 @@
             overflow: hidden;
         }
 
-        /* Mockup Notch */
         .hero-mockup::before {
             content: '';
             position: absolute;
@@ -220,6 +201,90 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        /* Pop-up Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 61, 98, 0.85); /* Primary color overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            position: relative;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--text-main);
+        }
+
+        .modal-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .modal-content h2 {
+            color: var(--primary);
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .popup-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 14px 20px;
         }
 
         /* Footer */
@@ -266,17 +331,36 @@
                 width: 280px;
                 height: 570px;
             }
+            .modal-content {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="redirect-overlay">
-        Redirecting to Google Play Store... Please wait.
+    <!-- Pop-up Modal -->
+    <div id="installModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <img src="assets/icon.jpeg" alt="Sale X Logo" class="modal-logo">
+            <h2>Get the Sale X App</h2>
+            <p>Experience Pakistan's trusted marketplace directly on your phone. Buy & sell effortlessly!</p>
+            <a href="https://play.google.com/store/apps/details?id=com.arriverr.salex" class="play-store-btn popup-btn">
+                <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#ffffff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+                </svg>
+                <div class="play-store-text">
+                    <div class="small">GET IT ON</div>
+                    <div class="large">Google Play</div>
+                </div>
+            </a>
+        </div>
     </div>
 
+    <!-- Header Section -->
     <header>
-        <a href="https://play.google.com/store/apps/details?id=com.arriverr.salex" class="brand-logo">
+        <a href="#" class="brand-logo">
             <img src="assets/icon.jpeg" alt="Sale X Logo">
             <div class="brand-text">Sale X</div>
         </a>
@@ -287,6 +371,7 @@
         </a>
     </header>
 
+    <!-- Main Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-tag">🌟 #1 Marketplace App</div>
@@ -304,9 +389,11 @@
             </a>
         </div>
 
+        <!-- Vertical Slider App Mockup -->
         <div class="hero-mockup">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
+                    <!-- Slidable Images -->
                     <div class="swiper-slide"><img src="assets/1.png" alt="Sale X App Preview 1"></div>
                     <div class="swiper-slide"><img src="assets/2.png" alt="Sale X App Preview 2"></div>
                     <div class="swiper-slide"><img src="assets/3.png" alt="Sale X App Preview 3"></div>
@@ -317,10 +404,12 @@
         </div>
     </section>
 
+    <!-- Footer Section -->
     <footer>
         <p>Developed & Designed by <span>Arriverr Software</span>. &copy; 2026 Sale X. All rights reserved.</p>
     </footer>
 
+    <!-- Swiper JS Script -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
         // Initialize Vertical Swiper Slider
@@ -336,6 +425,18 @@
             effect: "slide",
             spaceBetween: 10,
         });
+
+        // Show Pop-up Modal 800ms after the page loads
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('installModal').classList.add('active');
+            }, 800);
+        };
+
+        // Close Pop-up Function
+        function closeModal() {
+            document.getElementById('installModal').classList.remove('active');
+        }
     </script>
 </body>
 </html>
